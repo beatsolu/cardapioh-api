@@ -47,7 +47,8 @@ class Base(Configuration):
         'rest_framework',
 
         # Local apps
-        'cardapioh.apps.accounts.apps.AccountsConfig'
+        'cardapioh.apps.accounts.apps.AccountsConfig',
+        'cardapioh.apps.places.apps.PlacesConfig'
     ]
 
     MIDDLEWARE = [
