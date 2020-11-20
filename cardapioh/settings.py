@@ -31,7 +31,7 @@ class Base(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = values.BooleanValue(False)
 
-    ALLOWED_HOSTS = values.ListValue(['*'])
+    ALLOWED_HOSTS = ['*']
 
     # Application definition
 
@@ -45,10 +45,11 @@ class Base(Configuration):
 
         # Third apps
         'rest_framework',
+        'django_filters',
 
         # Local apps
         'cardapioh.apps.accounts.apps.AccountsConfig',
-        'cardapioh.apps.places.apps.PlacesConfig'
+        'cardapioh.apps.places.apps.PlacesConfig',
     ]
 
     MIDDLEWARE = [
@@ -120,6 +121,10 @@ class Base(Configuration):
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+    MEDIA_URL = '/media/'
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
     STATIC_URL = '/static/'
 

@@ -16,6 +16,7 @@ Including another URLconf
 
 
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views.debug import default_urlconf
@@ -26,13 +27,17 @@ from rest_framework.schemas import get_schema_view
 
 from . import __version__
 from .apps.accounts import views as accounts
+from .apps.places   import views as places
 
 routes = SimpleRouter(trailing_slash=True)
 
 routes.register('users', accounts.UserModelViewSet)
+routes.register('items', places.ItemListAPIView)
+routes.register('places', places.PlaceListAPIView)
+routes.register('sessions', places.SessionListAPIView)
 
 api_patterns = [
-    path('', include(routes.urls))
+    path('api/', include(routes.urls)),
 ]
 
 urlpatterns = [
@@ -54,4 +59,5 @@ if settings.DEBUG:
             version=__version__,
             patterns=api_patterns,
         ), name='open-api-schema'),
-    ]
+
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

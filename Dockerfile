@@ -8,7 +8,20 @@ RUN apk update && \
     gcc \
     musl-dev \
     python3-dev \
-    postgresql-dev
+    postgresql-dev \
+    build-base \
+    python3 \
+    python3-dev \
+    freetype-dev \
+    fribidi-dev \
+    harfbuzz-dev \
+    jpeg-dev \
+    lcms2-dev \
+    openjpeg-dev \
+    tcl-dev \
+    tiff-dev \
+    tk-dev \
+    zlib-dev
 WORKDIR cardapioh
 COPY . /cardapioh
 RUN pip install pipenv
