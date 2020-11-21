@@ -1,7 +1,5 @@
 FROM python:3.8.2-alpine
 ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE cardapioh.settings
-ENV DJANGO_CONFIGURATION Production
 ARG DEVELOPMENT
 RUN apk update && \
     apk add \
