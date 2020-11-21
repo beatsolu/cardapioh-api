@@ -31,5 +31,5 @@ CMD ["gunicorn", \
      "--worker-tmp-dir=/dev/shm",\
      "--threads=4", \
      "--log-file=-", \
-     "--bind=0.0.0.0:${PORT:-8000}",\
+     "--bind=0.0.0.0:8000",\
      "cardapioh.wsgi"]
