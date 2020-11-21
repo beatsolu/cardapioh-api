@@ -48,3 +48,4 @@ class Item(Base):
     class Meta:
         verbose_name = 'item'
         verbose_name_plural = 'items'
+        ordering = ('code',)
