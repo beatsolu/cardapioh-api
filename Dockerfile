@@ -24,7 +24,7 @@ WORKDIR cardapioh
 COPY . /cardapioh
 RUN pip install pipenv
 RUN pipenv install --system --deploy $DEVELOPMENT
-EXPOSE 8000
+EXPOSE $PORT
 CMD ["gunicorn", \
      "--workers=2",\
      "--worker-class=gthread",  \
