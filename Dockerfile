@@ -24,12 +24,12 @@ WORKDIR cardapioh
 COPY . /cardapioh
 RUN pip install pipenv
 RUN pipenv install --system --deploy $DEVELOPMENT
-EXPOSE $PORT
+EXPOSE 8000
 CMD ["gunicorn", \
      "--workers=2",\
      "--worker-class=gthread",  \
      "--worker-tmp-dir=/dev/shm",\
      "--threads=4", \
      "--log-file=-", \
-     "--bind=0.0.0.0",\
+     "--bind=0.0.0.0:${PORT:-8000}",\
      "cardapioh.wsgi"]
