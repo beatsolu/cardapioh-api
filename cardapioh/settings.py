@@ -46,6 +46,7 @@ class Base(Configuration):
         # Third apps
         'rest_framework',
         'django_filters',
+        'corsheaders',
 
         # Local apps
         'cardapioh.apps.accounts.apps.AccountsConfig',
@@ -56,6 +57,7 @@ class Base(Configuration):
         'django.middleware.security.SecurityMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -137,6 +139,8 @@ class Base(Configuration):
 
     AUTH_USER_MODEL = 'accounts.User'
 
+    CORS_ALLOWED_ORIGINS = values.Value([])
+
 
 class Test(Base):
     SECRET_KEY = 'secret_test'
@@ -149,7 +153,7 @@ class Test(Base):
 
 
 class Development(Base):
-    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_ALLOW_ALL_ORIGINS = True
 
     # See https://docs.djangoproject.com/en/2.2/topics/cache/#dummy-caching-for-development
     CACHES = values.CacheURLValue('dummy://')
