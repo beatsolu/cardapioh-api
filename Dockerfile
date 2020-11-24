@@ -22,6 +22,7 @@ RUN apk update && \
     zlib-dev
 WORKDIR cardapioh
 COPY . /cardapioh
+RUN pip install --upgrade pip
 RUN pip install pipenv
 RUN pipenv install --system --deploy $DEVELOPMENT
 EXPOSE 8000
