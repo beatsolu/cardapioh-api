@@ -4,4 +4,6 @@ build:
 run:
     web: gunicorn --bind 0.0.0.0:${PORT:-8000} -w 1 cardapioh.wsgi
 release:
-    - "python manage.py migrate"
+    image: web
+    command:
+        - python manage.py migrate
