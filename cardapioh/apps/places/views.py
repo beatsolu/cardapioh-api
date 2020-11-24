@@ -11,7 +11,7 @@ class ItemListAPIView(ModelViewSet):
     queryset = Item.objects.filter(is_active=True).order_by('code')
     serializer_class = ItemModelSerializer
     filter_backends = [SearchFilter, filters.DjangoFilterBackend]
-    search_fields = ['name']
+    search_fields = ['name', 'description']
     filterset_class = ItemFilter
 
 
