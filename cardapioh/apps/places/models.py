@@ -52,7 +52,7 @@ class Item(Base):
 
 
 class Price(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='items', null=True, blank=True)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='prices', null=True, blank=True)
     label = models.CharField(max_length=100, null=True, blank=True)
     value = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
 
