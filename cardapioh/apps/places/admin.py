@@ -1,15 +1,20 @@
 from django.contrib import admin
 
-from .models import Item, Place, Session
+from .models import Item, Place, Session, Price
 
 
-class ItemTabularInline(admin.StackedInline):
+class PriceTabularInline(admin.StackedInline):
+    model = Price
+
+
+class ItemStackedInline(admin.StackedInline):
     model = Item
 
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'session')
     search_fields = ('name',)
+    inlines = [PriceTabularInline]
 
 
 class PlaceAdmin(admin.ModelAdmin):
@@ -18,7 +23,7 @@ class PlaceAdmin(admin.ModelAdmin):
 
 
 class SessionAdmin(admin.ModelAdmin):
-    inlines = [ItemTabularInline]
+    inlines = [ItemStackedInline]
     list_display = ('name', 'place')
     search_fields = ('name',)
 
