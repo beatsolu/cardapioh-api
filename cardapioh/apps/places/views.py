@@ -8,7 +8,7 @@ from .serializers import ItemModelSerializer, PlaceModelSerializer, SessionModel
 
 
 class ItemListAPIView(ModelViewSet):
-    queryset = Item.objects.order_by('code')
+    queryset = Item.objects.filter(is_active=True).order_by('code')
     serializer_class = ItemModelSerializer
     filter_backends = [SearchFilter, filters.DjangoFilterBackend]
     search_fields = ['name']
@@ -16,7 +16,7 @@ class ItemListAPIView(ModelViewSet):
 
 
 class PlaceListAPIView(ModelViewSet):
-    queryset = Place.objects.order_by('id')
+    queryset = Place.objects.filter(is_active=True).order_by('id')
     serializer_class = PlaceModelSerializer
     filter_backends = [SearchFilter, filters.DjangoFilterBackend]
     search_fields = ['name']
@@ -24,7 +24,7 @@ class PlaceListAPIView(ModelViewSet):
 
 
 class SessionListAPIView(ModelViewSet):
-    queryset = Session.objects.order_by('id')
+    queryset = Session.objects.filter(is_active=True).order_by('id')
     serializer_class = SessionModelSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = SessionFilter
