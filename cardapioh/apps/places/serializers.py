@@ -1,9 +1,17 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import Item, Place, Session
+from .models import Item, Place, Price, Session
+
+
+class PriceModelSerializer(ModelSerializer):
+    class Meta:
+        model = Price
+        fields = '__all__'
 
 
 class ItemModelSerializer(ModelSerializer):
+    prices = PriceModelSerializer(many=True)
+
     class Meta:
         model = Item
         fields = '__all__'

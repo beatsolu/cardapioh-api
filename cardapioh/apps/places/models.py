@@ -42,7 +42,6 @@ class Item(Base):
     code = models.CharField(max_length=100, null=True, blank=True)
     description = models.TextField(max_length=1024, null=True, blank=True)
     description_english = models.TextField(max_length=1024, null=True, blank=True)
-    price = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
     discount = models.PositiveSmallIntegerField(null=True, blank=True)
     image = models.ImageField(upload_to='items', null=True, blank=True)
 
@@ -50,3 +49,14 @@ class Item(Base):
         verbose_name = 'item'
         verbose_name_plural = 'items'
         ordering = ('code',)
+
+
+class Price(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='items', null=True, blank=True)
+    label = models.CharField(max_length=100, null=True, blank=True)
+    value = models.DecimalField(max_digits=19, decimal_places=2, null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'price'
+        verbose_name_plural = 'prices'
+        ordering = ('value',)
