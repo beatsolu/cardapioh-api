@@ -14,18 +14,21 @@ class ItemStackedInline(admin.StackedInline):
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'session')
     search_fields = ('name',)
+    list_filter = ('session',)
     inlines = [PriceTabularInline]
 
 
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ('name', 'address')
     search_fields = ('name',)
+    list_filter = ('name',)
 
 
 class SessionAdmin(admin.ModelAdmin):
     inlines = [ItemStackedInline]
     list_display = ('name', 'place')
     search_fields = ('name',)
+    list_filter = ('place',)
 
 
 admin.site.register(Item, ItemAdmin)
