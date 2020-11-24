@@ -141,6 +141,16 @@ class Base(Configuration):
 
     CORS_ALLOWED_ORIGINS = values.Value([])
 
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    AWS_ACCESS_KEY_ID = values.Value()
+
+    AWS_SECRET_ACCESS_KEY = values.Value()
+
+    AWS_STORAGE_BUCKET_NAME = 's3.cardapioh.com.br'
+
+    AWS_LOCATION = 'media'
+
 
 class Test(Base):
     SECRET_KEY = 'secret_test'
