@@ -14,7 +14,7 @@ class ItemStackedInline(admin.StackedInline):
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'session')
     search_fields = ('name',)
-    list_filter = ('session',)
+    list_filter = ('session', 'session__place')
     inlines = [PriceTabularInline]
 
 
