@@ -53,6 +53,7 @@ class Item(Base):
             code = int(self._meta.model.objects.last().code)
             code += 1
             self.code = str(code).zfill(3)
+        self.session.place.save()
         super().save(*args, **kwargs)
 
     class Meta:
