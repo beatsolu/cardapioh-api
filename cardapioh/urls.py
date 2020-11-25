@@ -45,6 +45,7 @@ admin.site.site_header = 'Cardapioh'
 admin.site.index_title = 'Administração'
 
 urlpatterns = [
+    path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
 ]
 
