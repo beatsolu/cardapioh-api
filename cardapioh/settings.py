@@ -48,6 +48,7 @@ class Base(Configuration):
         'rest_framework',
         'django_filters',
         'corsheaders',
+        'nested_admin',
 
         # Local apps
         'cardapioh.apps.accounts.apps.AccountsConfig',
@@ -151,6 +152,8 @@ class Base(Configuration):
     AWS_STORAGE_BUCKET_NAME = 's3.cardapioh.com.br'
 
     AWS_LOCATION = 'media'
+
+    JET_SIDE_MENU_COMPACT = True
 
 
 class Test(Base):

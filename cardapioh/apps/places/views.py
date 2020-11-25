@@ -11,7 +11,7 @@ class ItemListAPIView(ModelViewSet):
     queryset = Item.objects.filter(is_active=True).order_by('code')
     serializer_class = ItemModelSerializer
     filter_backends = [SearchFilter, filters.DjangoFilterBackend]
-    search_fields = ['name', 'description']
+    search_fields = ['name', 'description', 'keywords']
     filterset_class = ItemFilter
 
 
@@ -24,8 +24,7 @@ class PlaceListAPIView(ModelViewSet):
 
 
 class SessionListAPIView(ModelViewSet):
-    queryset = Session.objects.filter(is_active=True).order_by('id')
+    queryset = Session.objects.filter(is_active=True).order_by('position')
     serializer_class = SessionModelSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = SessionFilter
-

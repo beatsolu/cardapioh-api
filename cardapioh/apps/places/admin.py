@@ -1,20 +1,30 @@
 from django.contrib import admin
+from nested_admin import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 
 from .models import Item, Place, Session, Price
+from ..accounts.models import User
 
 
-class PriceTabularInline(admin.StackedInline):
+class PriceTabularInline(NestedTabularInline):
     model = Price
 
 
-class ItemStackedInline(admin.StackedInline):
+class ItemStackedInline(NestedStackedInline):
     model = Item
+    inlines = [PriceTabularInline]
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name', 'session')
+    list_display = ('code', 'name', 'description', 'session')
     search_fields = ('name',)
     inlines = [PriceTabularInline]
+    list_editable = ('code',)
+    list_display_links = ('name',)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "session":
+            kwargs["queryset"] = Session.objects.filter(place__user=request.user)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_list_filter(self, request):
         if request.user.is_superuser:
@@ -32,6 +42,11 @@ class PlaceAdmin(admin.ModelAdmin):
     list_display = ('name', 'address')
     search_fields = ('name',)
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "user":
+            kwargs["queryset"] = User.objects.filter(id=request.user.id)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
     def get_list_filter(self, request):
         if request.user.is_superuser:
             self.list_filter = ('name',)
@@ -44,10 +59,16 @@ class PlaceAdmin(admin.ModelAdmin):
         return qs.filter(user=request.user)
 
 
-class SessionAdmin(admin.ModelAdmin):
+class SessionAdmin(NestedModelAdmin):
     inlines = [ItemStackedInline]
-    list_display = ('name', 'place')
+    list_display = ('name', 'place', 'position')
     search_fields = ('name',)
+    list_editable = ('position',)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "place":
+            kwargs["queryset"] = Place.objects.filter(user=request.user)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_list_filter(self, request):
         if request.user.is_superuser:

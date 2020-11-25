@@ -26,7 +26,8 @@ class Place(Base):
 
 
 class Session(Base):
-    name_english = models.CharField(max_length=300, null=True, blank=True)
+    sub_name = models.CharField(max_length=300, null=True, blank=True)
+    position = models.SmallIntegerField(default=0)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='sessions', null=True, blank=True)
 
     def __str__(self):
@@ -35,15 +36,24 @@ class Session(Base):
     class Meta:
         verbose_name = 'session'
         verbose_name_plural = 'sessions'
+        ordering = ('position',)
 
 
 class Item(Base):
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='data', null=True, blank=True)
-    code = models.CharField(max_length=100, null=True, blank=True)
+    code = models.CharField(max_length=100, null=True, blank=True, help_text='Leave blank for autocomplete')
     description = models.TextField(max_length=1024, null=True, blank=True)
-    description_english = models.TextField(max_length=1024, null=True, blank=True)
+    sub_description = models.TextField(max_length=1024, null=True, blank=True)
     discount = models.PositiveSmallIntegerField(null=True, blank=True)
     image = models.ImageField(upload_to='items', null=True, blank=True)
+    keywords = models.CharField(max_length=300, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            code = int(self._meta.model.objects.last().code)
+            code += 1
+            self.code = str(code).zfill(3)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'item'

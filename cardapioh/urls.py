@@ -43,6 +43,7 @@ api_patterns = [
 admin.site.site_title = 'Cardapioh'
 admin.site.site_header = 'Cardapioh'
 admin.site.index_title = 'Administração'
+admin.site.site_url = 'http://cardapioh.com.br'
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
