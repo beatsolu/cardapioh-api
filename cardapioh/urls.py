@@ -40,6 +40,10 @@ api_patterns = [
     path('api/', include(routes.urls)),
 ]
 
+admin.site.site_title = 'Cardapioh'
+admin.site.site_header = 'Cardapioh'
+admin.site.index_title = 'Administração'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
